@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   init_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 14:52:33 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/24 15:29:24 by jlaiti           ###   ########.fr       */
+/*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
+/*   Updated: 2022/12/24 15:38:28 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	*check_path(char *envp[])
 {
-	int		fd_in;
-	int		fd_out;
-	pid_t		pid1;
-	pid_t		pid2;
-	t_pipex		pipex;
+	int	i;
 
-	if (argc == 5)
+	i = 0;
+	while (envp[i] && !ft_strnstr(envp[i], "PATH", ft_strlen(envp[i])))
 	{
-		fd_in = init_fd_in(argv[1]);
-		fd_out = init_fd_out(argv[argc - 1]);
-		init_process(pipex, envp);
+		i++;
 	}
-	else
-		ft_need_args();
-	return (0);
+	return (envp[i] + 5);
+}
+
+void	init_process(t_pipex pipex, char *envp[])
+{
+	pipex.path = check_path(envp);	
+	pipex.cmd_path = ft_split(pipex.paths);
+	
 }
