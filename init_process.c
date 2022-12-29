@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/24 15:38:28 by jlaiti           ###   ########.fr       */
+/*   Updated: 2022/12/29 14:55:25 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ char	*check_path(char *envp[])
 	return (envp[i] + 5);
 }
 
-void	init_process(t_pipex pipex, char *envp[])
+void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
 {
-	pipex.path = check_path(envp);	
-	pipex.cmd_path = ft_split(pipex.paths);
-	
+	t_pipex	pipex;
+
+	pipex.paths = check_path(envp);
+	pipex.cmd_paths = ft_split(pipex.paths, ':');
+	pipex.pid1 = fork();
+	if (pipex.pid1 == 0)
+		first_cmd(pipex, fd_in, argv, envp);
+	pipex.pid2 = fork();
+	if (pipex.pid2 == 0)
+		second_cmd(pipex, fd_out, argv, envp);
 }
