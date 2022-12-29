@@ -6,13 +6,15 @@
 #    By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/24 14:49:17 by jlaiti            #+#    #+#              #
-#    Updated: 2022/12/24 14:50:24 by jlaiti           ###   ########.fr        #
+#    Updated: 2022/12/29 15:54:53 by jlaiti           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =  	pipex.c		\
-		pipex_init_fd.c	\
-		pipex_execute.c	\
+SRCS =  	pipex.c			\
+		pipex_init_fd.c		\
+		execute_process.c	\
+		init_process.c		\
+
 
 NAME = pipex
 LIB  = libft.a
