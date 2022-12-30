@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/30 09:22:48 by jlaiti           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:21:43 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,17 @@ char	*check_path(char *envp[])
 void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
 {
 	t_pipex	pipex;
+	int		i;
 
+	i = 0;
 	pipex.paths = check_path(envp);
+	printf("%s\n", pipex.paths);
 	pipex.cmd_paths = ft_split(pipex.paths, ':');
+	/*while (pipex.cmd_paths)
+	{
+		printf("%s\n", pipex.cmd_paths[i]);
+		i++;
+	}*/
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
 		first_cmd(pipex, fd_in, argv, envp);
