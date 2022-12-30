@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 13:58:34 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/29 15:50:44 by jlaiti           ###   ########.fr       */
+/*   Updated: 2022/12/30 09:48:26 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	first_cmd(t_pipex pipex, int fd_in, char *argv[], char *envp[])
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (!pipex.cmd)
 	{	
-		//clean_pipex(&pipex);
 		exit(1);
 	}
 	execve(pipex.cmd, pipex.cmd_args, envp);
@@ -56,7 +55,6 @@ void	second_cmd(t_pipex pipex, int fd_out, char *argv[], char *envp[])
 	pipex.cmd = get_cmd(pipex.cmd_paths, pipex.cmd_args[0]);
 	if (!pipex.cmd)
 	{
-		//clean_pipex(&pipex);
 		exit(1);
 	}
 	execve(pipex.cmd, pipex.cmd_args, envp);

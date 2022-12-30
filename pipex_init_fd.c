@@ -6,34 +6,34 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 14:53:42 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/24 14:53:54 by jlaiti           ###   ########.fr       */
+/*   Updated: 2022/12/30 09:51:10 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	init_fd_in(char	*arg)
+int	init_fd_in(char	*argv)
 {
 	int	init;
 
-	if (access(arg, F_OK) == 0)
-		init = open(arg, O_RDONLY);
+	if (access(argv, F_OK) == 0)
+		init = open(argv, O_RDONLY);
 	else
 	{
-		perror(arg);
+		perror(argv);
 		return (EXIT_FAILURE);
 	}
 	return (init);
 }
 
-int	init_fd_out(char *arg)
+int	init_fd_out(char *argv)
 {
 	int	init;
 
-	init = open(arg, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	init = open(argv, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (init == -1)
 	{
-		perror(arg);
+		perror(argv);
 		return (EXIT_FAILURE);
 	}
 	return (init);
