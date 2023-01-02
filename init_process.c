@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/31 15:10:24 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/02 15:32:58 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ char	*check_path(char *envp[])
 	return (envp[i] + 5);
 }
 
-void	close_pipes(t_pipex *pipex)
+void	close_pipes(t_pipex *pipex, int fd_in, int fd_out)
 {
-	close(pipex->pipe_fd[0]);
 	close(pipex->pipe_fd[1]);
-	printf("step1\n");
+	close(pipex->pipe_fd[0]);
+	close(fd_in);
+	close(fd_out);
 }
 
 void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
@@ -37,25 +38,18 @@ void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
 
 	pipex.paths = check_path(envp);
 	pipex.cmd_paths = ft_split(pipex.paths, ':');
+	pipe(pipex.pipe_fd);
 	pipex.pid1 = fork();
-	printf("fork1\n");
 	if (pipex.pid1 == 0)
 	{
-		printf("fork1child\n");
 		first_cmd(pipex, fd_in, argv, envp);
 	}
 	pipex.pid2 = fork();
-	printf("fork2\n");
 	if (pipex.pid2 == 0)
 	{
-		printf("fork2child\n");
 		second_cmd(pipex, fd_out, argv, envp);
 	}
-	//close(pipex.pipe_fd[0]);
-	//close(pipex.pipe_fd[1]);
-	close_pipes(&pipex);
-	printf("closepipe\n");
+	close_pipes(&pipex, fd_in, fd_out);
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
-	printf("final\n");
 }
