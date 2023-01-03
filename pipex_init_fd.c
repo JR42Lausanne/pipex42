@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 14:53:42 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/30 09:51:10 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:49:38 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	init_fd_out(char *argv)
 
 void	ft_need_args(void)
 {
-	ft_printf("Need Cmds => ./pipex [File1] [Cmd1] [Cmd2] [File2]\n");
+	perror("Need Cmds => ./pipex [File1] [Cmd1] [Cmd2] [File2]\n");
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 14:57:16 by jlaiti            #+#    #+#             */
-/*   Updated: 2023/01/03 12:27:37 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/03 14:56:58 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*get_cmd(char **paths, char *cmd);
 void	init_process(int fd_in, int fd_out, char *argv[], char *envp[]);
 void	first_cmd(t_pipex pipex, int fd_in, char *argv[], char *envp[]);
 void	second_cmd(t_pipex pipex, int fd_out, char *argv[], char *envp[]);
+void	close_pipes(t_pipex *pipex, int fd_in, int fd_out);
 void	free_cmd(t_pipex *pipex);
 void	free_process(t_pipex *pipex);
+
 #endif
