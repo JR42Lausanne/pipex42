@@ -6,11 +6,24 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
-/*   Updated: 2023/01/02 15:32:58 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/03 12:25:56 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	free_process(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	while (pipex->cmd_paths[i] != 0)
+	{
+		free(pipex->cmd_paths[i]);
+		i++;
+	}
+	free(pipex->cmd_paths);
+}
 
 char	*check_path(char *envp[])
 {
@@ -52,4 +65,5 @@ void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
 	close_pipes(&pipex, fd_in, fd_out);
 	waitpid(pipex.pid1, NULL, 0);
 	waitpid(pipex.pid2, NULL, 0);
+	free_process(&pipex);
 }

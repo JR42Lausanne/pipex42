@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 14:57:16 by jlaiti            #+#    #+#             */
-/*   Updated: 2022/12/30 09:50:32 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/03 12:27:37 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ typedef struct s_pipex
 	pid_t	pid2;
 }		t_pipex;
 
-int	init_fd_in(char	*argv);
-int	init_fd_out(char *argv);
+int		init_fd_in(char	*argv);
+int		init_fd_out(char *argv);
 void	ft_need_args(void);
 char	*check_path(char *envp[]);
 char	*get_cmd(char **paths, char *cmd);
 void	init_process(int fd_in, int fd_out, char *argv[], char *envp[]);
 void	first_cmd(t_pipex pipex, int fd_in, char *argv[], char *envp[]);
 void	second_cmd(t_pipex pipex, int fd_out, char *argv[], char *envp[]);
-
+void	free_cmd(t_pipex *pipex);
+void	free_process(t_pipex *pipex);
 #endif
