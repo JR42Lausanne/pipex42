@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:27:04 by jlaiti            #+#    #+#             */
-/*   Updated: 2023/01/03 12:25:56 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/04 15:18:16 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	init_process(int fd_in, int fd_out, char *argv[], char *envp[])
 
 	pipex.paths = check_path(envp);
 	pipex.cmd_paths = ft_split(pipex.paths, ':');
-	pipe(pipex.pipe_fd);
+	if (pipe(pipex.pipe_fd) < 0)
+	{
+		perror("Error Pipe");
+		exit(EXIT_FAILURE);
+	}
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
 	{

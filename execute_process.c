@@ -6,7 +6,7 @@
 /*   By: jlaiti <jlaiti@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 13:58:34 by jlaiti            #+#    #+#             */
-/*   Updated: 2023/01/03 12:12:53 by jlaiti           ###   ########.fr       */
+/*   Updated: 2023/01/04 15:24:13 by jlaiti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	first_cmd(t_pipex pipex, int fd_in, char *argv[], char *envp[])
 	if (!pipex.cmd)
 	{	
 		free_cmd(&pipex);
-		ft_printf("Command not found\n");
-		exit(1);
+		perror("Command not found");
+		exit(EXIT_FAILURE);
 	}
 	execve(pipex.cmd, pipex.cmd_args, envp);
 }
@@ -71,8 +71,8 @@ void	second_cmd(t_pipex pipex, int fd_out, char *argv[], char *envp[])
 	if (!pipex.cmd)
 	{
 		free_cmd(&pipex);
-		ft_printf("Command not found\n");
-		exit(1);
+		perror("Command not found");
+		exit(EXIT_FAILURE);
 	}
 	execve(pipex.cmd, pipex.cmd_args, envp);
 }
