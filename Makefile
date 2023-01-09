@@ -25,32 +25,24 @@ CFLAGS = -Wall -Wextra -Werror
 
 CC = gcc
 
+all: $(NAME)
 
 $(LIB):
-	cd libft/ && make && cp -v libft.a ../
+	cd libft/ && make && cp -v libft.a ../ 
 
-$(NAME): $(LIB) $(OBJS_SRCS)
-	$(CC) -L. -lft -o $(NAME) $(OBJS_SRCS)
-	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
-
-                                   #####  #  #####  #####  #    #
-                                   #   #  #  #   #  #       #  #
-                                   #####  #  #####  #####    #
-                                   #      #  #      #       #  #
-                                   #      #  #      #####  #    #
-
-%.o : %.c Makefile
+%.o : %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-
-all: $(NAME)
+$(NAME) : $(LIB) $(OBJS_SRCS)
+	$(CC) -L. -lft -o $(NAME) $(OBJS_SRCS)
 
 clean:
 	rm -rf $(OBJS_SRCS)
-	${MAKE} -C libft clean
+	${MAKE} clean -C libft
 
 fclean: clean
 	rm -rf $(NAME) $(LIB)
+	${MAKE} fclean -C libft
 
 re: fclean all
 
